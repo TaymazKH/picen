@@ -10,7 +10,8 @@ class ImageReader:
         self.width = self.image.width
         self.height = self.image.height
         self.image_mode = self.image.mode
-        self.half_read_block = ''
+        self.incomplete_block = ''
+        self.padded = False
 
     def has_unread_pixel(self):
         pass
@@ -19,7 +20,15 @@ class ImageReader:
         pass
 
     def has_unread_block(self):
-        pass
+        return not self.padded
 
     def get_next_block(self):
-        pass
+        block = self.incomplete_block
+        while len(block) < 128:
+            if self.has_unread_pixel():
+                block += self.get_next_pixel()
+            else:
+                self.padded = True
+                block += '1' + '0' * 127
+        self.incomplete_block = block[128:]
+        return block[:128]
