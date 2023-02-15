@@ -1,12 +1,13 @@
 from PIL import Image
+from util.functions import pixel_to_string
 
 
 class ImageReader:
     def __init__(self, path):
         self.image = Image.open(path)
         self.image.load()
-        self.pixel_x = 0
-        self.pixel_y = 0
+        self.pixel_x = 0  # iterates from top to bottom
+        self.pixel_y = 0  # iterates from left to right
         self.width = self.image.width
         self.height = self.image.height
         self.image_mode = self.image.mode
@@ -14,10 +15,11 @@ class ImageReader:
         self.padded = False
 
     def has_unread_pixel(self):
-        pass
+        return self.pixel_x < self.height
 
     def get_next_pixel(self):
-        pass
+        pixel = self.image.getpixel((self.pixel_x, self.pixel_y))
+        return pixel_to_string(pixel, self.image_mode)
 
     def has_unread_block(self):
         return not self.padded
