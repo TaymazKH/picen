@@ -7,6 +7,18 @@
 This program uses block ciphers to encrypt and decrypt images.<br>
 The main algorithm is the CBC mode and AES-128 is used as the PRP.
 
+## Setup
+
+Install `pipenv`
+```
+pip install pipenv
+```
+Install dependencies
+```
+pipenv install
+```
+You can now run and use the program
+
 ## Usage
 
 Here are the list of commands and their usages:

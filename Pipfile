@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 pillow = "==9.4.0"
+baseconvert = "==1.0.0a4"
 
 [dev-packages]
 
