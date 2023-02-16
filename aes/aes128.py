@@ -1,4 +1,5 @@
 from baseconv import base2, base16
+from util.functions import extend_number
 
 
 def run(block: str):
@@ -30,7 +31,17 @@ def shift_rows(matrix: list):
 
 
 def mix_columns(matrix: list):
-    pass
+    new_matrix = []
+    for i in range(4):
+        new_matrix.append([None] * 4)
+    for i in range(4):
+        for j in range(4):
+            ans = 0
+            for k in range(4):
+                ans += m_matrix[i][k] * int(base2.decode(matrix[k][j]))
+            new_matrix[i][j] = extend_number(base2.encode(ans % 256), 8)
+    for i in range(4):
+        matrix[i] = new_matrix[i]
 
 
 def add_round_key(matrix: list):
