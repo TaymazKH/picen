@@ -24,7 +24,7 @@ def key_schedule(main_key: str):
         last_word = [last_key[3][8:16], last_key[3][16:24], last_key[3][24:], last_key[3][:8]]
         for j in range(4):
             last_word[j] = _get_from_s_box(last_word[j])
-        last_word[0] = xor(last_word[0], extend_number(2 ** i, 8))
+        last_word[0] = xor(last_word[0], extend_number(base2.encode(2 ** i), 8))
         # start calculation of the round key
         new_key = [xor(last_key[0], nested_list_to_string(last_word))]
         for j in range(3):

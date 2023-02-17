@@ -22,7 +22,7 @@ def extend_number(str_num: str, digit_count: int):
 def xor(str1: str, str2: str):
     output = ''
     for i in range(len(str1)):
-        output += 0 if str1[i] == str2[i] else 1
+        output += '0' if str1[i] == str2[i] else '1'
     return output
 
 
