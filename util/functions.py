@@ -1,10 +1,6 @@
 from baseconv import base2
 
 
-def extend_number(str_num: str, digit_count: int):
-    return '0' * (digit_count - len(str_num)) + str_num
-
-
 def pixel_to_string(pixel, mode):
     if mode == '1':
         return str(pixel)
@@ -17,3 +13,14 @@ def pixel_to_string(pixel, mode):
         return output
     else:
         raise ValueError(f'unsupported image mode: {mode}')
+
+
+def extend_number(str_num: str, digit_count: int):
+    return '0' * (digit_count - len(str_num)) + str_num
+
+
+def xor(str1: str, str2: str):
+    output = ''
+    for i in range(len(str1)):
+        output += 0 if str1[i] == str2[i] else 1
+    return output

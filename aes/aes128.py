@@ -1,9 +1,28 @@
 from baseconv import base2, base16
-from util.functions import extend_number
+from util.functions import extend_number, xor
 
 
 def run(block: str):
     pass
+
+
+def key_schedule(main_key: str):
+    keys = []
+    last_key = [main_key[:32], main_key[32:64], main_key[64:96], main_key[96:]]
+    for i in range(10):
+        # calculate the modified last 32-bit word by shifting, subtracting and xor-ing with r_i
+        modified_last_word = [last_key[3][8:16], last_key[3][16:24], last_key[3][24:], last_key[3][:8]]
+        for j in range(4):
+            modified_last_word[j] = _get_from_s_box(modified_last_word[j])
+        modified_last_word[0] = xor(modified_last_word[0], extend_number(2 ** i, 8))
+        # start calculation of the round key
+        new_key = [xor(last_key[0], modified_last_word[0] + modified_last_word[1] + modified_last_word[2] + modified_last_word[3])]
+        for j in range(3):
+            new_key.append(xor(last_key[j + 1], new_key[j]))
+        # add the round key to the list of keys and prepare for next iteration
+        keys.append(new_key[0] + new_key[1] + new_key[2] + new_key[3])
+        last_key = new_key
+    return keys
 
 
 def generate_matrix(block: str):
@@ -19,9 +38,7 @@ def generate_matrix(block: str):
 def sub_bytes(matrix: list):
     for i in range(4):
         for j in range(4):
-            word = matrix[i][j]
-            new_word = base16.decode(s_box[int(base2.decode(word[0:4]))][int(base2.decode(word[4:8]))])
-            matrix[i][j] = new_word
+            matrix[i][j] = _get_from_s_box(matrix[i][j])
 
 
 def shift_rows(matrix: list):
@@ -46,6 +63,16 @@ def mix_columns(matrix: list):
 
 def add_round_key(matrix: list):
     pass
+
+
+def _get_from_s_box(byte: str):
+    return base2.encode(base16.decode(
+        s_box[
+            int(base2.decode(byte[0:4]))
+        ][
+            int(base2.decode(byte[4:8]))
+        ]
+    ))
 
 
 s_box = [
