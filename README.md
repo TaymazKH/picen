@@ -11,11 +11,11 @@ The main algorithm is the CBC mode and AES-128 is used as the PRP.
 
 Install `pipenv`
 ```
-pip install pipenv
+$ pip install pipenv
 ```
 Install dependencies
 ```
-pipenv install
+$ pipenv install
 ```
 You can now run and use the program
 

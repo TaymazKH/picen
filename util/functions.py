@@ -24,3 +24,7 @@ def xor(str1: str, str2: str):
     for i in range(len(str1)):
         output += 0 if str1[i] == str2[i] else 1
     return output
+
+
+def nested_list_to_string(nested_list: list):
+    return nested_list.__str__().replace('[', '').replace(']', '').replace(',', '').replace(' ', '').replace('\'', '')

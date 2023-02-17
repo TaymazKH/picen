@@ -1,13 +1,23 @@
 from baseconv import base2, base16
-from util.functions import extend_number, xor
+from util.functions import extend_number, xor, nested_list_to_string
 
 
 def run(block: str, round_keys: list):
-    pass
+    matrix = generate_matrix(block)
+    add_round_key(matrix, round_keys[0])
+    for i in range(9):
+        sub_bytes(matrix)
+        shift_rows(matrix)
+        mix_columns(matrix)
+        add_round_key(matrix, round_keys[i + 1])
+    sub_bytes(matrix)
+    shift_rows(matrix)
+    add_round_key(matrix, round_keys[10])
+    return nested_list_to_string(matrix)
 
 
 def key_schedule(main_key: str):
-    keys = []
+    keys = [generate_matrix(main_key)]
     last_key = [main_key[:32], main_key[32:64], main_key[64:96], main_key[96:]]
     for i in range(10):
         # calculate the modified last 32-bit word by shifting, subtracting and xor-ing with r_i
@@ -16,11 +26,11 @@ def key_schedule(main_key: str):
             last_word[j] = _get_from_s_box(last_word[j])
         last_word[0] = xor(last_word[0], extend_number(2 ** i, 8))
         # start calculation of the round key
-        new_key = [xor(last_key[0], last_word[0] + last_word[1] + last_word[2] + last_word[3])]
+        new_key = [xor(last_key[0], nested_list_to_string(last_word))]
         for j in range(3):
             new_key.append(xor(last_key[j + 1], new_key[j]))
         # add the round key to the list of keys and prepare for next iteration
-        keys.append(generate_matrix(new_key[0] + new_key[1] + new_key[2] + new_key[3]))
+        keys.append(generate_matrix(nested_list_to_string(new_key)))
         last_key = new_key
     return keys
 
