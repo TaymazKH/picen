@@ -2,7 +2,7 @@ from baseconv import base2, base16
 from util.functions import extend_number, xor
 
 
-def run(block: str):
+def run(block: str, round_keys: list):
     pass
 
 
@@ -11,16 +11,16 @@ def key_schedule(main_key: str):
     last_key = [main_key[:32], main_key[32:64], main_key[64:96], main_key[96:]]
     for i in range(10):
         # calculate the modified last 32-bit word by shifting, subtracting and xor-ing with r_i
-        modified_last_word = [last_key[3][8:16], last_key[3][16:24], last_key[3][24:], last_key[3][:8]]
+        last_word = [last_key[3][8:16], last_key[3][16:24], last_key[3][24:], last_key[3][:8]]
         for j in range(4):
-            modified_last_word[j] = _get_from_s_box(modified_last_word[j])
-        modified_last_word[0] = xor(modified_last_word[0], extend_number(2 ** i, 8))
+            last_word[j] = _get_from_s_box(last_word[j])
+        last_word[0] = xor(last_word[0], extend_number(2 ** i, 8))
         # start calculation of the round key
-        new_key = [xor(last_key[0], modified_last_word[0] + modified_last_word[1] + modified_last_word[2] + modified_last_word[3])]
+        new_key = [xor(last_key[0], last_word[0] + last_word[1] + last_word[2] + last_word[3])]
         for j in range(3):
             new_key.append(xor(last_key[j + 1], new_key[j]))
         # add the round key to the list of keys and prepare for next iteration
-        keys.append(new_key[0] + new_key[1] + new_key[2] + new_key[3])
+        keys.append(generate_matrix(new_key[0] + new_key[1] + new_key[2] + new_key[3]))
         last_key = new_key
     return keys
 
@@ -61,18 +61,22 @@ def mix_columns(matrix: list):
         matrix[i] = new_matrix[i]
 
 
-def add_round_key(matrix: list):
-    pass
+def add_round_key(matrix: list, round_key: list):
+    for i in range(4):
+        for j in range(4):
+            matrix[i][j] = xor(matrix[i][j], round_key[i][j])
 
 
 def _get_from_s_box(byte: str):
-    return base2.encode(base16.decode(
-        s_box[
-            int(base2.decode(byte[0:4]))
-        ][
-            int(base2.decode(byte[4:8]))
-        ]
-    ))
+    return extend_number(
+        base2.encode(base16.decode(
+            s_box[
+                int(base2.decode(byte[0:4]))
+            ][
+                int(base2.decode(byte[4:8]))
+            ]
+        )), 8
+    )
 
 
 s_box = [
