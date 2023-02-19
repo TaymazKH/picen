@@ -5,7 +5,7 @@
 ## Algorithms
 
 This program uses block ciphers to encrypt and decrypt images.<br>
-The main algorithm is the CBC mode and AES-128 is used as the PRP.
+The main algorithm is the OFB mode and AES-128 is used as the PRP.
 
 ## Setup
 

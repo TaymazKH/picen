@@ -2,18 +2,22 @@ from baseconv import base2, base16
 from util.functions import extend_number, xor, nested_list_to_string
 
 
-def run(block: str, round_keys: list):
+def run(block: str, round_keys: list, iter_count: int = 10):
     matrix = generate_matrix(block)
     add_round_key(matrix, round_keys[0])
-    for i in range(9):
-        sub_bytes(matrix)
-        shift_rows(matrix)
-        mix_columns(matrix)
-        add_round_key(matrix, round_keys[i + 1])
+    for i in range(iter_count - 1):
+        _inner_iteration(matrix, round_keys[i + 1])
     sub_bytes(matrix)
     shift_rows(matrix)
     add_round_key(matrix, round_keys[10])
     return nested_list_to_string(matrix)
+
+
+def _inner_iteration(matrix: list, round_key: list):
+    sub_bytes(matrix)
+    shift_rows(matrix)
+    mix_columns(matrix)
+    add_round_key(matrix, round_key)
 
 
 def key_schedule(main_key: str):
