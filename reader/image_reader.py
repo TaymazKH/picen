@@ -1,8 +1,9 @@
 from PIL import Image
 from util.functions import pixel_to_string
+from reader.reader import Reader
 
 
-class ImageReader:
+class ImageReader(Reader):
     def __init__(self, path):
         self.image = Image.open(path)
         self.image.load()
