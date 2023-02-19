@@ -1,15 +1,15 @@
-from abc import ABC, abstractmethod
+from writer.writer import Writer
 
 
-class Writer(ABC):
-    @abstractmethod
+class ImageFileWriter(Writer):
+    def __init__(self):
+        pass
+
     def write_next_block(self, block: str):
         pass
 
-    @abstractmethod
     def write_init(self, init):
         pass
 
-    @abstractmethod
     def write_end(self, end):
         pass

@@ -35,3 +35,9 @@ class ImageReader(Reader):
                 block += '1' + '0' * 127
         self.incomplete_block = block[128:]
         return block[:128]
+
+    def get_init(self):
+        return self.width, self.height
+
+    def get_end(self):
+        return None

@@ -11,9 +11,9 @@ class Reader(ABC):
         pass
 
     @abstractmethod
-    def get_init(self) -> str:
+    def get_init(self):
         pass
 
     @abstractmethod
-    def get_end(self) -> str:
+    def get_end(self):
         pass
