@@ -22,10 +22,10 @@ class ImageReader(Reader):
         pixel = self.image.getpixel((self.pixel_x, self.pixel_y))
         return pixel_to_string(pixel, self.image_mode)
 
-    def has_unread_block(self):
+    def has_unread_block(self) -> bool:
         return not self.padded
 
-    def get_next_block(self):
+    def get_next_block(self) -> str:
         block = self.incomplete_block
         while len(block) < 128:
             if self.has_unread_pixel():
