@@ -15,6 +15,10 @@ def pixel_to_string(pixel, mode):
         raise ValueError(f'unsupported image mode: {mode}')
 
 
+def string_to_pixel(string):
+    pass
+
+
 def extend_number(str_num: str, digit_count: int):
     return '0' * (digit_count - len(str_num)) + str_num
 
