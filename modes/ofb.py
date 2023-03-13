@@ -19,9 +19,9 @@ def encrypt(reader: Reader, writer: Writer, key: str, iv: str):
 
 
 def decrypt(reader: Reader, writer: Writer, key: str):
+    writer.write_init(reader.get_init())
     previous_output = reader.get_next_block()
     round_keys = aes128.key_schedule(key)
-    writer.write_init(reader.get_init())
     while reader.has_unread_block():
         e_block = aes128.run(previous_output, round_keys)
         c_block = reader.get_next_block()

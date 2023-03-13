@@ -11,7 +11,7 @@ class ImageFileWriter(Writer):
 
     def write_init(self, init):
         with open(self.path, 'w') as file:
-            file.write(init[0] + init[1] + '\n')
+            file.write(f'{init[0]} {init[1]} {init[2]}\n')
 
     def write_end(self, end):
         pass

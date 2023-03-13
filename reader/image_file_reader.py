@@ -22,7 +22,7 @@ class ImageFileReader(Reader):
     def get_init(self):
         with open(self.path) as file:
             init = file.readline()
-        return tuple([int(i) for i in init.split()])
+        return int(init[0]), int(init[1]), init[2]
 
     def get_end(self):
         return None

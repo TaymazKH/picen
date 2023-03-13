@@ -37,7 +37,7 @@ class ImageReader(Reader):
         return block[:128]
 
     def get_init(self):
-        return self.width, self.height
+        return self.width, self.height, self.image_mode
 
     def get_end(self):
         return None
