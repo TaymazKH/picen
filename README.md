@@ -19,13 +19,7 @@ $ pipenv install
 ```
 You can now run and use the program
 
-## Usage
+## Links
 
-Here are the list of commands and their usages:
-
-| Command | Usage                 | Description                       |
-|:-------:|-----------------------|-----------------------------------|
-|   gen   | gen \[options]        | generates a new random key        |
-|   enc   | enc \<src> \[options] | encrypts the image at `src`       |
-|   dec   | dec \<src> \[options] | decrypts the cipher text at `src` |
-|   key   | key \[options]        | changes the global keys           |
+- [GitHub](https://github.com/TaymazKH/picen)
+- [Trello](https://trello.com/b/7QRmgQuH/picen)

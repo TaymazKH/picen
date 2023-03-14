@@ -1,8 +1,14 @@
+# IDE
 .idea/
 .vscode/
 
+# python specefic
 venv/
 __pycache__/
+
+# project specific
+/ignored
 Pipfile.lock
 
+# git
 *.orig
