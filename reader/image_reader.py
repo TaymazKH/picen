@@ -10,16 +10,20 @@ class ImageReader(Reader):
         self.width = self.image.width
         self.height = self.image.height
         self.image_mode = self.image.mode
-        self.pixel_x = 0  # iterates from top to bottom
-        self.pixel_y = 0  # iterates from left to right
+        self.pixel_x = 0  # iterates from left to right
+        self.pixel_y = 0  # iterates from top to bottom
         self.incomplete_block = ''
         self.padded = False
 
     def has_unread_pixel(self):
-        return self.pixel_x < self.height
+        return self.pixel_y < self.height
 
     def get_next_pixel(self):
         pixel = self.image.getpixel((self.pixel_x, self.pixel_y))
+        self.pixel_x += 1
+        if self.pixel_x == self.width:
+            self.pixel_x = 0
+            self.pixel_y += 1
         return pixel_to_string(pixel, self.image_mode)
 
     def has_unread_block(self) -> bool:

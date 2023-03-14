@@ -31,6 +31,15 @@ def string_to_pixel(string, mode):
         raise ValueError(f'unsupported image mode: {mode}')
 
 
+def get_pixel_string_length(mode):
+    return {
+        '1': 1,
+        'L': 8,
+        'RGB': 24,
+        'RGBA': 32
+    }[mode]
+
+
 def extend_number(str_num: str, digit_count: int):
     return '0' * (digit_count - len(str_num)) + str_num
 
