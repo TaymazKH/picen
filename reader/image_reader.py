@@ -7,11 +7,11 @@ class ImageReader(Reader):
     def __init__(self, path):
         self.image = Image.open(path)
         self.image.load()
-        self.pixel_x = 0  # iterates from top to bottom
-        self.pixel_y = 0  # iterates from left to right
         self.width = self.image.width
         self.height = self.image.height
         self.image_mode = self.image.mode
+        self.pixel_x = 0  # iterates from top to bottom
+        self.pixel_y = 0  # iterates from left to right
         self.incomplete_block = ''
         self.padded = False
 

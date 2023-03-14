@@ -15,8 +15,20 @@ def pixel_to_string(pixel, mode):
         raise ValueError(f'unsupported image mode: {mode}')
 
 
-def string_to_pixel(string):
-    pass
+def string_to_pixel(string, mode):
+    if mode == '1':
+        return int(string)
+    elif mode == 'L':
+        return base2.decode(string)
+    elif mode == 'RGB' or mode == 'RGBA':
+        output = []
+        i = 0
+        while i < len(string):
+            output.append(base2.decode(string[i:i + 8]))
+            i += 8
+        return tuple(output)
+    else:
+        raise ValueError(f'unsupported image mode: {mode}')
 
 
 def extend_number(str_num: str, digit_count: int):
