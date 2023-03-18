@@ -42,4 +42,5 @@ class ImageWriter(Writer):
         self.image = Image.new(self.image_mode, (self.width, self.height))
 
     def write_end(self, end):
-        pass
+        if self.path is not None:
+            self.image.save(self.path)
