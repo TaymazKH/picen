@@ -24,7 +24,7 @@ def string_to_pixel(string, mode):
         output = []
         i = 0
         while i < len(string):
-            output.append(base2.decode(string[i:i + 8]))
+            output.append(int(base2.decode(string[i:i + 8])))
             i += 8
         return tuple(output)
     else:

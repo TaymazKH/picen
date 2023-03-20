@@ -6,22 +6,26 @@ class ImageFileReader(Reader):
     def __init__(self, path):
         self.path = path
         self.index = 1
-        self.unread_line = ''
+
+    def _get_line(self, index):
+        line = None
+        with open(self.path) as file:
+            for block in islice(file, index, index + 1):
+                line = block[:-1]
+                break
+        return line
 
     def has_unread_block(self) -> bool:
-        with open(self.path) as file:
-            for block in islice(file, self.index, self.index + 1):
-                self.unread_line = block
-                break
-        return self.unread_line != ''
+        return self._get_line(self.index) is not None
 
     def get_next_block(self) -> str:
+        line = self._get_line(self.index)
         self.index += 1
-        return self.unread_line
+        return line
 
     def get_init(self):
         with open(self.path) as file:
-            init = file.readline()
+            init = tuple(file.readline().split())
         return int(init[0]), int(init[1]), init[2]
 
     def get_end(self):
