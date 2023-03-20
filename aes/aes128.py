@@ -1,4 +1,4 @@
-from baseconv import base2, base16
+from baseconv import base2
 from util.functions import extend_number, xor, nested_list_to_string
 
 
