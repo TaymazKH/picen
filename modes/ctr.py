@@ -2,10 +2,11 @@ from baseconv import base2
 from aes import aes128
 from reader.reader import Reader
 from writer.writer import Writer
-from util.functions import xor
+from util.functions import xor, random_binary_string
 
 
-def encrypt(reader: Reader, writer: Writer, key: str, iv: str):
+def encrypt(reader: Reader, writer: Writer, key: str):
+    iv = random_binary_string()
     counter = int(base2.decode(iv))
     base = int(base2.decode('1' + '0' * 128))
     round_keys = aes128.key_schedule(key)
