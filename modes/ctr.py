@@ -6,8 +6,8 @@ from util.functions import xor
 
 
 def encrypt(reader: Reader, writer: Writer, key: str, iv: str):
-    counter = base2.decode(iv)
-    base = base2.decode('1' + '0' * 128)
+    counter = int(base2.decode(iv))
+    base = int(base2.decode('1' + '0' * 128))
     round_keys = aes128.key_schedule(key)
     writer.write_init(reader.get_init())
     writer.write_next_block(iv)
@@ -25,8 +25,8 @@ def encrypt(reader: Reader, writer: Writer, key: str, iv: str):
 def decrypt(reader: Reader, writer: Writer, key: str):
     writer.write_init(reader.get_init())
     iv = reader.get_next_block()
-    counter = base2.decode(iv)
-    base = base2.decode('1' + '0' * 128)
+    counter = int(base2.decode(iv))
+    base = int(base2.decode('1' + '0' * 128))
     round_keys = aes128.key_schedule(key)
     while reader.has_unread_block():
         counter += 1
