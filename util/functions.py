@@ -1,3 +1,4 @@
+from random import randint
 from baseconv import base2
 
 
@@ -42,6 +43,13 @@ def get_pixel_string_length(mode):
 
 def extend_number(str_num: str, digit_count: int):
     return '0' * (digit_count - len(str_num)) + str_num
+
+
+def random_binary_string(length: int = 128):
+    output = ''
+    for _ in range(length):
+        output += str(randint(0, 1))
+    return output
 
 
 def xor(str1: str, str2: str):
