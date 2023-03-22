@@ -35,7 +35,7 @@ def dec(in_stream, out_stream, key, mode_name):
 @cli.command()
 @click.option('-b', '--base', default='16', type=click.Choice(['2', '16', '64']))
 def gen(base):
-    generate_key(base)
+    click.echo(f'Generated random key in base {base}:\n{generate_key(base)}')
 
 
 if __name__ == '__main__':

@@ -16,7 +16,7 @@ def encrypt(in_stream, out_stream, key, mode_name):
             key = extend_number(base2.encode(base64.decode(key)), 128)
         else:
             click.echo('Invalid key!')
-            raise click.Abort()
+            raise ValueError('Invalid key!')
     reader = ImageReader(in_stream)
     writer = ImageFileWriter(out_stream)
     mode = _get_mode(mode_name)
@@ -31,7 +31,7 @@ def decrypt(in_stream, out_stream, key, mode_name):
             key = extend_number(base2.encode(base64.decode(key)), 128)
         else:
             click.echo('Invalid key!')
-            raise click.Abort()
+            raise ValueError('Invalid key!')
     reader = ImageFileReader(in_stream)
     writer = ImageWriter(out_stream)
     mode = _get_mode(mode_name)
@@ -44,7 +44,9 @@ def generate_key(base):
         key = extend_number(base16.encode(base2.decode(key)), 32)
     elif base == '64':
         key = extend_number(base64.encode(base2.decode(key)), 22)
-    click.echo(f'Generated random key in base {base}:\n{key}')
+    elif base != '2':
+        raise ValueError(f'Base must be either 2, 16, or 64. Not {base}')
+    return key
 
 
 def _get_mode(name: str):
@@ -55,7 +57,15 @@ def _get_mode(name: str):
 
 
 if __name__ == '__main__':
-    click.echo("Welcome to picen!")
+    click.secho("Welcome to picen!", fg='green', bold=True, italic=True)
     click.echo("This is the main module.")
-    click.echo("From here you can import and call 'encrypt', 'decrypt' and 'generate_key' functions.")
-    click.echo("If you want to use picen as a stand-alone application, run 'python picen_cli.py'.")
+    click.echo("From here you can import and call '", nl=False)
+    click.secho("encrypt", fg='yellow', nl=False)
+    click.echo("', '", nl=False)
+    click.secho("decrypt", fg='yellow', nl=False)
+    click.echo("' and '", nl=False)
+    click.secho("generate_key", fg='yellow', nl=False)
+    click.echo("' functions.")
+    click.echo("If you want to use picen as a stand-alone application, run '", nl=False)
+    click.secho("python picen_cli.py", fg='yellow', nl=False)
+    click.echo("'.")
