@@ -32,7 +32,7 @@ class ImageFileReader(Reader):
         self.index += 1
         return line
 
-    def get_init(self):
+    def get_entry(self):
         try:
             with open(self.path) as file:
                 entry = file.readline()

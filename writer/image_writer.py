@@ -1,4 +1,5 @@
 from PIL import Image
+from util.exceptions import MissingBlocksException, ExtraBlocksException, CouldNotWriteException, InvalidValueException
 from util.functions import string_to_pixel, get_pixel_string_length
 from writer.writer import Writer
 
@@ -6,6 +7,7 @@ from writer.writer import Writer
 class ImageWriter(Writer):
     def __init__(self, path: str = None):
         self.path = path
+        self.entry = ''
         self.width = 0
         self.height = 0
         self.image_mode = ''
@@ -27,6 +29,8 @@ class ImageWriter(Writer):
             self.pixel_y += 1
 
     def write_next_block(self, block: str):
+        if not self.is_image_incomplete():
+            raise ExtraBlocksException(self.entry)
         block = self.incomplete_pixel + block
         while len(block) >= self.pixel_str_len and self.is_image_incomplete():
             pixel_str = block[:self.pixel_str_len]
@@ -35,14 +39,23 @@ class ImageWriter(Writer):
             block = block[self.pixel_str_len:]
         self.incomplete_pixel = block
 
-    def write_init(self, init):
-        self.width = init[0]
-        self.height = init[1]
-        self.image_mode = init[2]
+    def write_entry(self, entry):
+        self.width = entry[0]
+        self.height = entry[1]
+        self.image_mode = entry[2]
         self.pixel_str_len = get_pixel_string_length(self.image_mode)
         self.image = Image.new(self.image_mode, (self.width, self.height))
         self.pixel_access = self.image.load()
 
     def write_end(self, end):
-        if self.path is not None:
-            self.image.save(self.path)
+        if self.is_image_incomplete():
+            raise MissingBlocksException(self.entry)
+        if self.path is None:
+            self.image.show()
+        else:
+            try:
+                self.image.save(self.path)
+            except ValueError:
+                raise InvalidValueException(['path'], [self.path], 'Could not determine output format.')
+            except OSError:
+                raise CouldNotWriteException(self.path)

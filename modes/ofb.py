@@ -8,7 +8,7 @@ def encrypt(reader: Reader, writer: Writer, key: str):
     iv = random_binary_string()
     previous_output = iv
     round_keys = aes128.key_schedule(key)
-    writer.write_init(reader.get_init())
+    writer.write_entry(reader.get_entry())
     writer.write_next_block(iv)
     while reader.has_unread_block():
         e_block = aes128.run(previous_output, round_keys)
@@ -20,7 +20,7 @@ def encrypt(reader: Reader, writer: Writer, key: str):
 
 
 def decrypt(reader: Reader, writer: Writer, key: str):
-    writer.write_init(reader.get_init())
+    writer.write_entry(reader.get_entry())
     previous_output = reader.get_next_block()
     round_keys = aes128.key_schedule(key)
     while reader.has_unread_block():

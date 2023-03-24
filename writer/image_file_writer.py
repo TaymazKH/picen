@@ -1,4 +1,5 @@
 from writer.writer import Writer
+from util.exceptions import CouldNotWriteException
 
 
 class ImageFileWriter(Writer):
@@ -7,11 +8,17 @@ class ImageFileWriter(Writer):
 
     def write_next_block(self, block: str):
         with open(self.path, 'a') as file:
-            file.write(block + '\n')
+            try:
+                file.write(block + '\n')
+            except Exception:
+                raise CouldNotWriteException(self.path)
 
-    def write_init(self, init):
+    def write_entry(self, entry):
         with open(self.path, 'w') as file:
-            file.write(f'{init[0]} {init[1]} {init[2]}\n')
+            try:
+                file.write(f'{entry[0]} {entry[1]} {entry[2]}\n')
+            except Exception:
+                raise CouldNotWriteException(self.path)
 
     def write_end(self, end):
         pass

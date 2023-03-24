@@ -7,7 +7,7 @@ class Writer(ABC):
         pass
 
     @abstractmethod
-    def write_init(self, init):
+    def write_entry(self, init):
         pass
 
     @abstractmethod

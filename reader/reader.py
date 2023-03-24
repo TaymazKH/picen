@@ -11,7 +11,7 @@ class Reader(ABC):
         pass
 
     @abstractmethod
-    def get_init(self):
+    def get_entry(self):
         pass
 
     @abstractmethod

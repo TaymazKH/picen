@@ -46,7 +46,7 @@ class ImageReader(Reader):
         self.incomplete_block = block[128:]
         return block[:128]
 
-    def get_init(self):
+    def get_entry(self):
         return self.width, self.height, self.image_mode
 
     def get_end(self):

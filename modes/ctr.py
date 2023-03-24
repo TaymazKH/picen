@@ -10,7 +10,7 @@ def encrypt(reader: Reader, writer: Writer, key: str):
     counter = int(base2.decode(iv))
     base = int(base2.decode('1' + '0' * 128))
     round_keys = aes128.key_schedule(key)
-    writer.write_init(reader.get_init())
+    writer.write_entry(reader.get_entry())
     writer.write_next_block(iv)
     while reader.has_unread_block():
         counter += 1
@@ -24,7 +24,7 @@ def encrypt(reader: Reader, writer: Writer, key: str):
 
 
 def decrypt(reader: Reader, writer: Writer, key: str):
-    writer.write_init(reader.get_init())
+    writer.write_entry(reader.get_entry())
     iv = reader.get_next_block()
     counter = int(base2.decode(iv))
     base = int(base2.decode('1' + '0' * 128))

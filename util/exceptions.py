@@ -25,6 +25,11 @@ class FileNotFoundException(PicenException):
         super().__init__(f"File not found at path: '{path}'.")
 
 
+class CouldNotWriteException(PicenException):
+    def __init__(self, path: str):
+        super().__init__(f"Could not write in file at path: '{path}'.")
+
+
 class EncryptionException(PicenException):
     pass
 
@@ -55,16 +60,16 @@ class EntryAndBlocksMismatchException(DecryptionException):
 
 
 class MissingBlocksException(EntryAndBlocksMismatchException):
-    def __init__(self, entry: str, block_count: int):
+    def __init__(self, entry: str):
         super().__init__(f"Entry data and block count do not match.\n"
-                         f"Entry: '{entry}', block count: '{block_count}'.\n"
+                         f"Entry: '{entry}'.\n"
                          f"Total number of blocks are less than the required amount.")
 
 
 class ExtraBlocksException(EntryAndBlocksMismatchException):
-    def __init__(self, entry: str, block_count: int):
+    def __init__(self, entry: str):
         super().__init__(f"Entry data and block count do not match.\n"
-                         f"Entry: '{entry}', read block count: '{block_count}'.\n"
+                         f"Entry: '{entry}'.\n"
                          f"Total number of blocks are more than the required amount.")
 
 
