@@ -20,8 +20,18 @@ class InvalidImageModeException(PicenException):
                          f"Supported modes: 1, L, RGB, RGBA")
 
 
+class FileNotFoundException(PicenException):
+    def __init__(self, path: str):
+        super().__init__(f"File not found at path: '{path}'.")
+
+
 class EncryptionException(PicenException):
     pass
+
+
+class MalformedImageException(EncryptionException):
+    def __init__(self, path: str):
+        super().__init__(f"Could not read the image at path: '{path}'.")
 
 
 class DecryptionException(PicenException):

@@ -1,11 +1,17 @@
 from PIL import Image
-from util.functions import pixel_to_string
 from reader.reader import Reader
+from util.exceptions import FileNotFoundException, MalformedImageException
+from util.functions import pixel_to_string
 
 
 class ImageReader(Reader):
     def __init__(self, path):
-        self.image = Image.open(path)
+        try:
+            self.image = Image.open(path)
+        except FileNotFoundError:
+            raise FileNotFoundException(path)
+        except Exception:
+            raise MalformedImageException(path)
         self.image.load()
         self.width = self.image.width
         self.height = self.image.height

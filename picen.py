@@ -6,14 +6,14 @@ from writer import *
 from util.constants import base16, base64
 from util.exceptions import InvalidKeyValueException, InvalidBCModeException, InvalidValueException
 from util.functions import extend_number, random_binary_string
-from util.validators import is_base2_string, is_base16_string, is_base64_string
+from util.validators import is_length128_base2_string, is_length32_base16_string, is_length22_base64_string
 
 
 def encrypt(in_stream, out_stream, key, mode_name):
-    if not is_base2_string(key) or len(key) != 128:
-        if is_base16_string(key) and len(key) == 32:
+    if not is_length128_base2_string(key):
+        if is_length32_base16_string(key):
             key = extend_number(base2.encode(base16.decode(key)), 128)
-        elif is_base64_string(key) and len(key) == 22:
+        elif is_length22_base64_string(key):
             key = extend_number(base2.encode(base64.decode(key)), 128)
         else:
             raise InvalidKeyValueException(key)
@@ -24,10 +24,10 @@ def encrypt(in_stream, out_stream, key, mode_name):
 
 
 def decrypt(in_stream, out_stream, key, mode_name):
-    if not is_base2_string(key) or len(key) != 128:
-        if is_base16_string(key) and len(key) == 32:
+    if not is_length128_base2_string(key):
+        if is_length32_base16_string(key):
             key = extend_number(base2.encode(base16.decode(key)), 128)
-        elif is_base64_string(key) and len(key) == 22:
+        elif is_length22_base64_string(key):
             key = extend_number(base2.encode(base64.decode(key)), 128)
         else:
             raise InvalidKeyValueException(key)
