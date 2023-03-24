@@ -1,5 +1,6 @@
 from random import randint
 from baseconv import base2
+from util.exceptions import InvalidImageModeException
 
 
 def pixel_to_string(pixel, mode):
@@ -13,7 +14,7 @@ def pixel_to_string(pixel, mode):
             output += extend_number(base2.encode(num), 8)
         return output
     else:
-        raise ValueError(f'unsupported image mode: {mode}')
+        raise InvalidImageModeException(mode)
 
 
 def string_to_pixel(string, mode):
@@ -29,16 +30,19 @@ def string_to_pixel(string, mode):
             i += 8
         return tuple(output)
     else:
-        raise ValueError(f'unsupported image mode: {mode}')
+        raise InvalidImageModeException(mode)
 
 
 def get_pixel_string_length(mode):
-    return {
+    length = {
         '1': 1,
         'L': 8,
         'RGB': 24,
         'RGBA': 32
-    }[mode]
+    }.get(mode)
+    if length is None:
+        raise InvalidImageModeException(mode)
+    return length
 
 
 def extend_number(str_num: str, digit_count: int):
