@@ -9,7 +9,7 @@ from util.functions import extend_number, random_binary_string
 from util.validators import is_length128_base2_string, is_length32_base16_string, is_length22_base64_string
 
 
-def encrypt(in_stream, out_stream, key, mode_name):
+def encrypt(in_stream, out_stream, key: str, mode_name: str):
     if not is_length128_base2_string(key):
         if is_length32_base16_string(key):
             key = extend_number(base2.encode(base16.decode(key)), 128)
@@ -23,7 +23,7 @@ def encrypt(in_stream, out_stream, key, mode_name):
     mode.encrypt(reader, writer, key)
 
 
-def decrypt(in_stream, out_stream, key, mode_name):
+def decrypt(in_stream, out_stream, key: str, mode_name: str):
     if not is_length128_base2_string(key):
         if is_length32_base16_string(key):
             key = extend_number(base2.encode(base16.decode(key)), 128)

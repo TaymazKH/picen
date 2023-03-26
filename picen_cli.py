@@ -18,14 +18,20 @@ def cli():
               help='The key used for encryption. Must be 128 / 32 / 22 digits long for bases 2 / 16 / 64 respectively.')
 @click.option('-m', '--mode', 'mode_name', default='ofb', show_default=True,
               type=click.Choice(['ofb', 'ctr'], case_sensitive=False), help='Block cipher mode used for encryption.')
-def enc(in_stream, out_stream, key, mode_name):
+@click.option('-q', '--quiet', is_flag=True, default=False, show_default=True,
+              help='Only print short feedback messages.')
+def enc(in_stream, out_stream, key, mode_name, quiet):
     try:
         encrypt(in_stream, out_stream, key, mode_name)
         click.secho('Done!', fg='green')
     except PicenException as e:
-        click.secho(f'An exception occurred:\n{e}', fg='red')
+        click.secho('Failed!', fg='red')
+        if not quiet:
+            click.secho(f'An exception occurred:\n{e}', fg='red')
     except Exception as e:
-        click.secho(f'An unknown exception occurred:\n{e}', fg='red')
+        click.secho('Failed!', fg='red')
+        if not quiet:
+            click.secho(f'An unknown exception occurred:\n{e}', fg='red')
 
 
 @cli.command()
@@ -35,25 +41,40 @@ def enc(in_stream, out_stream, key, mode_name):
               help='The key used for decryption. Must be 128 / 32 / 22 digits long for bases 2 / 16 / 64 respectively.')
 @click.option('-m', '--mode', 'mode_name', default='ofb', show_default=True,
               type=click.Choice(['ofb', 'ctr'], case_sensitive=False), help='Block cipher mode used for encryption.')
-def dec(in_stream, out_stream, key, mode_name):
+@click.option('-q', '--quiet', is_flag=True, default=False, show_default=True,
+              help='Only print short feedback messages.')
+def dec(in_stream, out_stream, key, mode_name, quiet):
     try:
         decrypt(in_stream, out_stream, key, mode_name)
         click.secho('Done!', fg='green')
     except PicenException as e:
-        click.secho(f'An exception occurred:\n{e}', fg='red')
+        click.secho('Failed!', fg='red')
+        if not quiet:
+            click.secho(f'An exception occurred:\n{e}', fg='red')
     except Exception as e:
-        click.secho(f'An unknown exception occurred:\n{e}', fg='red')
+        click.secho('Failed!', fg='red')
+        if not quiet:
+            click.secho(f'An unknown exception occurred:\n{e}', fg='red')
 
 
 @cli.command()
-@click.option('-b', '--base', default='16', type=click.Choice(['2', '16', '64']))
-def gen(base):
+@click.option('-b', '--base', default='16', type=click.Choice(['2', '16', '64']),
+              help='Number base in which the key is outputted.')
+@click.option('-q', '--quiet', is_flag=True, default=False, show_default=True,
+              help='Only print short feedback messages.')
+def gen(base, quiet):
     try:
-        click.echo(f'Generated random key in base {base}:\n{generate_key(base)}')
+        key = generate_key(base)
+        click.echo(f'Generated random key in base {base}:')
+        click.secho(key, fg='cyan')
     except PicenException as e:
-        click.secho(f'An exception occurred:\n{e}', fg='red')
+        click.secho('Failed!', fg='red')
+        if not quiet:
+            click.secho(f'An exception occurred:\n{e}', fg='red')
     except Exception as e:
-        click.secho(f'An unknown exception occurred:\n{e}', fg='red')
+        click.secho('Failed!', fg='red')
+        if not quiet:
+            click.secho(f'An unknown exception occurred:\n{e}', fg='red')
 
 
 if __name__ == '__main__':
