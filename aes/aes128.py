@@ -9,7 +9,7 @@ def run(block: str, round_keys: list, iter_count: int = 10):
         _inner_iteration(matrix, round_keys[i + 1])
     sub_bytes(matrix)
     shift_rows(matrix)
-    add_round_key(matrix, round_keys[10])
+    add_round_key(matrix, round_keys[iter_count])
     return nested_list_to_string(matrix)
 
 
@@ -20,10 +20,10 @@ def _inner_iteration(matrix: list, round_key: list):
     add_round_key(matrix, round_key)
 
 
-def key_schedule(main_key: str):
+def key_schedule(main_key: str, iter_count: int = 10):
     keys = [generate_matrix(main_key)]
     last_key = [main_key[:32], main_key[32:64], main_key[64:96], main_key[96:]]
-    for i in range(10):
+    for i in range(iter_count):
         # calculate the modified last 32-bit word by shifting, subtracting and xor-ing with r_i
         last_word = [last_key[3][8:16], last_key[3][16:24], last_key[3][24:], last_key[3][:8]]
         for j in range(4):
