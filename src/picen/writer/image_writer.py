@@ -1,7 +1,7 @@
 from PIL import Image
-from util.exceptions import MissingBlocksException, ExtraBlocksException, CouldNotWriteException, InvalidValueException
-from util.functions import string_to_pixel, get_pixel_string_length
-from writer.writer import Writer
+from ..util.exceptions import MissingBlocksException, ExtraBlocksException, CouldNotWriteException, InvalidValueException
+from ..util.functions import string_to_pixel, get_pixel_string_length
+from .writer import Writer
 
 
 class ImageWriter(Writer):

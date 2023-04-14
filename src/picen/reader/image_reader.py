@@ -1,7 +1,7 @@
 from PIL import Image
-from reader.reader import Reader
-from util.exceptions import FileNotFoundException, MalformedImageException
-from util.functions import pixel_to_string
+from .reader import Reader
+from ..util.exceptions import FileNotFoundException, MalformedImageException
+from ..util.functions import pixel_to_string
 
 
 class ImageReader(Reader):

@@ -1,7 +1,7 @@
 from itertools import islice
-from reader.reader import Reader
-from util.exceptions import FileNotFoundException, MalformedEncEntryException, MalformedEncBlockException
-from util.validators import is_length128_base2_string
+from .reader import Reader
+from ..util.exceptions import FileNotFoundException, MalformedEncEntryException, MalformedEncBlockException
+from ..util.validators import is_length128_base2_string
 
 
 class ImageFileReader(Reader):

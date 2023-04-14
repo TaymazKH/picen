@@ -1,4 +1,4 @@
-from util.constants import base16_alphabet, base64_alphabet
+from ..util.constants import base16_alphabet, base64_alphabet
 
 
 def is_length128_base2_string(string: str):

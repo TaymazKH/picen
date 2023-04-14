@@ -1,12 +1,12 @@
 import click
 from baseconv import base2
-from modes import *
-from reader import *
-from writer import *
-from util.constants import base16, base64
-from util.exceptions import InvalidKeyValueException, InvalidBCModeException, InvalidValueException
-from util.functions import extend_number, random_binary_string
-from util.validators import is_length128_base2_string, is_length32_base16_string, is_length22_base64_string
+from .modes import *
+from .reader import *
+from .writer import *
+from .util.constants import base16, base64
+from .util.exceptions import InvalidKeyValueException, InvalidBCModeException, InvalidValueException
+from .util.functions import extend_number, random_binary_string
+from .util.validators import is_length128_base2_string, is_length32_base16_string, is_length22_base64_string
 
 
 def encrypt(in_stream, out_stream, key: str, mode_name: str = 'ofb'):

@@ -1,5 +1,5 @@
-from writer.writer import Writer
-from util.exceptions import CouldNotWriteException
+from .writer import Writer
+from ..util.exceptions import CouldNotWriteException
 
 
 class ImageFileWriter(Writer):

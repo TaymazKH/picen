@@ -1,6 +1,6 @@
 from random import randint
 from baseconv import base2
-from util.exceptions import InvalidImageModeException
+from ..util.exceptions import InvalidImageModeException
 
 
 def pixel_to_string(pixel, mode):

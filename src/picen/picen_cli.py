@@ -1,6 +1,6 @@
 import click
-from picen import encrypt, decrypt, generate_key
-from util.exceptions import PicenException
+from .picen import encrypt, decrypt, generate_key
+from .util.exceptions import PicenException
 
 context_settings = dict(help_option_names=['-h', '--help'])
 
