@@ -8,11 +8,11 @@ name = "picen"
 description = "Picture encryption and decryption"
 version = "0.2"
 readme = "README.md"
-#license = { text = "MIT License" }
+license = { text = "MIT License" }
 authors = [{ name = "Taymaz Khormali", email = "TaymazKH.U@gmail.com" }]
 classifiers = [
 #    "Intended Audience :: Developers",
-#    "License :: OSI Approved :: BSD License",
+    "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Programming Language :: Python",
 ]
