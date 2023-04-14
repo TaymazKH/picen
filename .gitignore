@@ -10,5 +10,9 @@ __pycache__/
 /ignored
 Pipfile.lock
 
+# build
+dist/
+*.egg-info/
+
 # git
 *.orig
