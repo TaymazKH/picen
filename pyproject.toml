@@ -11,7 +11,8 @@ readme = "README.md"
 license = { text = "MIT License" }
 authors = [{ name = "Taymaz Khormali", email = "TaymazKH.U@gmail.com" }]
 classifiers = [
-#    "Intended Audience :: Developers",
+    "Intended Audience :: Developers",
+    "Intended Audience :: End Users/Desktop",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Programming Language :: Python",

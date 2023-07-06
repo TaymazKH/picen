@@ -1,6 +1,6 @@
 # Picen
 
-<u>Pic</u>ture <u>en</u>cryption and decryption program, written in python.
+**Pic**ture **en**cryption and decryption program, written in python.
 
 ## Algorithms
 
@@ -10,16 +10,10 @@ AES-128 is used as the PRP.
 
 ## Setup
 
-Install `pipenv`
+Install the package from PyPI:
 
 ```shell
-$ pip install pipenv
-```
-
-Install dependencies
-
-```shell
-$ pipenv install
+$ pip install picen
 ```
 
 ## Usage
@@ -27,10 +21,10 @@ $ pipenv install
 Picen can be used in both ways:
 
 - If you want to use it as a package in your own project, just import `encrypt`, `decrypt` and `generate_key`
-  functions from `picen.py`.
+  functions from `picen`.
 
 - If you want to use it as a stand-alone application, run
-  `python picen_cli.py`.
+  `python -m picen`.
 
 In both cases, the functions'/commands' parameters are mostly the same.
 

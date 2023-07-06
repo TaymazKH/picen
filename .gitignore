@@ -8,7 +8,6 @@ __pycache__/
 
 # project specific
 /ignored
-Pipfile.lock
 
 # build
 dist/
