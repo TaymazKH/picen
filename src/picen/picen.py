@@ -1,4 +1,3 @@
-import click
 from baseconv import base2
 from .modes import *
 from .reader import *
@@ -87,18 +86,3 @@ def _get_mode(name: str):
     if mode is None:
         raise InvalidBCModeException(name)
     return mode
-
-
-if __name__ == '__main__':
-    click.secho("Welcome to picen!", fg='green', bold=True, italic=True)
-    click.echo("This is the main module.")
-    click.echo("From here you can import and call '", nl=False)
-    click.secho("encrypt", fg='yellow', nl=False)
-    click.echo("', '", nl=False)
-    click.secho("decrypt", fg='yellow', nl=False)
-    click.echo("' and '", nl=False)
-    click.secho("generate_key", fg='yellow', nl=False)
-    click.echo("' functions.")
-    click.echo("If you want to use picen as a stand-alone application, run '", nl=False)
-    click.secho("python picen_cli.py", fg='yellow', nl=False)
-    click.echo("'.")
