@@ -6,7 +6,7 @@ context_settings = dict(help_option_names=['-h', '--help'])
 
 
 @click.group(context_settings=context_settings)
-@click.version_option(version='0.2')
+@click.version_option(version='0.2.1')
 def cli():
     pass
 

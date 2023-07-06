@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "picen"
 description = "Picture encryption and decryption"
-version = "0.2"
+version = "0.2.1"
 readme = "README.md"
 license = { text = "MIT License" }
 authors = [{ name = "Taymaz Khormali", email = "TaymazKH.U@gmail.com" }]

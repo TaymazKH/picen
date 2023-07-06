@@ -35,7 +35,7 @@ encrypt(in_stream, out_stream, key, mode_name)
 ```
 
 ```
-python picen_cli.py enc <in_stream> <out_stream> (--key=<str>) [--mode=<str>] [--quiet]
+python -m picen enc <in_stream> <out_stream> (--key=<str>) [--mode=<str>] [--quiet]
 ```
 
 - `in_stream` is the path to the image that you want to encrypt.
@@ -52,7 +52,7 @@ decrypt(in_stream, out_stream, key, mode_name)
 ```
 
 ```
-python picen_cli.py dec <in_stream> <out_stream> (--key=<str>) [--mode=<str>] [--quiet]
+python -m picen dec <in_stream> <out_stream> (--key=<str>) [--mode=<str>] [--quiet]
 ```
 
 Mainly same as encryption but:
@@ -67,7 +67,7 @@ generate_key(base)
 ```
 
 ```
-python picen_cli.py gen [--base=<str>] [--quiet]
+python -m picen gen [--base=<str>] [--quiet]
 ```
 
 - `-b` or `--base` is the number base in which the key is outputted. It can be 2 (128 digits), 16 (32 digits) or 64 (22

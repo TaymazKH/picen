@@ -20,8 +20,6 @@ class ImageFileReader(Reader):
             for block in islice(file, index, index + 1):
                 line = block[:-1]
                 break
-        if not is_length128_base2_string(line):
-            raise MalformedEncBlockException(line)
         return line
 
     def has_unread_block(self) -> bool:
@@ -29,6 +27,8 @@ class ImageFileReader(Reader):
 
     def get_next_block(self) -> str:
         line = self._get_line(self.index)
+        if not is_length128_base2_string(line):
+            raise MalformedEncBlockException(line)
         self.index += 1
         return line
 
