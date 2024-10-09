@@ -18,7 +18,7 @@ $ pip install picen
 
 ## Usage
 
-Picen can be used in both ways:
+Picen can be used in two ways:
 
 - If you want to use it as a package in your own project, just import `encrypt`, `decrypt` and `generate_key`
   functions from `picen`.
